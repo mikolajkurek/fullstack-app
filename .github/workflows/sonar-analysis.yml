@@ -1,12 +1,8 @@
-name: SonarQube Analysis
+# DISABLED - Merged into sonar-multi-module.yml
+name: SonarQube Analysis - DISABLED
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_dispatch: # Only run manually
 
 jobs:
   sonarcloud:
