@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build backend
-        working-directory: backend/paplikin-lk01-mikolajkurek
+        working-directory: ${{ github.workspace }}/backend/paplikin-lk01-mikolajkurek
         run: |
           chmod +x mvnw
           ./mvnw clean install -DskipTests
@@ -41,11 +41,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Install frontend deps and build
-        working-directory: frontend
+      - name: Debug and Install frontend deps and build
         run: |
+          echo "Current directory before attempting to access frontend: $(pwd)"
+          echo "Listing contents of GITHUB_WORKSPACE (${{ github.workspace }}):"
+          ls -la "${{ github.workspace }}"
+          echo "Attempting to cd into frontend directory: ${{ github.workspace }}/frontend"
+          cd "${{ github.workspace }}/frontend"
+          echo "Successfully changed to frontend directory: $(pwd)"
+          echo "Listing contents of frontend directory:"
+          ls -la
+          echo "Running npm install..."
           npm install
+          echo "Running npm run build..."
           npm run build
+        # working-directory directive removed for this step to test explicit cd
       - name: Cache SonarCloud
         uses: actions/cache@v4
         with:
