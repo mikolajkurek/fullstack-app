@@ -46,8 +46,8 @@ jobs:
           echo "Current directory before attempting to access frontend: $(pwd)"
           echo "Listing contents of GITHUB_WORKSPACE (${{ github.workspace }}):"
           ls -la "${{ github.workspace }}"
-          echo "Attempting to cd into frontend directory: ${{ github.workspace }}/frontend"
-          cd "${{ github.workspace }}/frontend"
+          echo "Attempting to cd into frontend directory: ${{ github.workspace }}/Frontend"
+          cd "${{ github.workspace }}/Frontend"
           echo "Successfully changed to frontend directory: $(pwd)"
           echo "Listing contents of frontend directory:"
           ls -la
