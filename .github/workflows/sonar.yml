@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -22,26 +23,32 @@ jobs:
       - name: Cache Maven
         uses: actions/cache@v4
         with:
-          path: ~/ -m2
+          path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: $f{ runner.os }}-m2
+          restore-keys: ${{ runner.os }}-m2
       - name: Build backend
-        working-directory: backend/PASiR_Nazwisko_Imie
-        run: mvn clean install -DskipTests
+        working-directory: ./backend/paplikin-lk01-mikolajkurek
+        run: |
+          chmod +x mvnw
+          ./mvnw clean install -DskipTests
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Install frontend deps
-        working-directory: frontend
-        run: npm install npm run build
+          node-version: 18
+      - name: Install frontend deps and build
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
       - name: Cache SonarCloud
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os })-sonar
+          key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarcloud-scan-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
