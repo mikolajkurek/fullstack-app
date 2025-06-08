@@ -1,8 +1,6 @@
 package org.example.pasir_kurek_mikolaj.dto;
 
-
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 

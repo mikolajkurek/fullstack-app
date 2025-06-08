@@ -34,9 +34,9 @@ public class GroupTransactionService {
                 .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono grupy"));
 
         List<Membership> members = membershipRepository.findByGroupId(group.getId());
-        List<Long> selectedUserIds = dto.getSelectedUserIds();
+        List<Long>selectedUserIds=dto.getSelectedUserIds();
 
-        if (selectedUserIds == null || selectedUserIds.isEmpty()) {
+        if (selectedUserIds ==null || selectedUserIds.isEmpty()) {
             throw new IllegalArgumentException("Nie wybrano żadnych użytkowników!");
         }
 

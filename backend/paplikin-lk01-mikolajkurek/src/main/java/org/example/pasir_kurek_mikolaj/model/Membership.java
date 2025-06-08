@@ -1,6 +1,5 @@
 package org.example.pasir_kurek_mikolaj.model;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

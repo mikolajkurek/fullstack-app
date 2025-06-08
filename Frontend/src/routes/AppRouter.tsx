@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TestApiComponent from "../components/TestApiComponent";
@@ -53,11 +52,21 @@ const App: React.FC = () => {
             path="/groups/:groupId/members"
             element={
               <PrivateRoute>
-                <GroupMembersPage />
+                <GroupMembersPage 
+                  group={{ id: 0, name: '', ownerId: 0 }} 
+                  onBack={() => {}} 
+                />
               </PrivateRoute>
             }
           />
-          <Route path="/groups/:groupId/debts" element={<GroupDebtsPage />} />
+          <Route 
+            path="/groups/:groupId/debts" 
+            element={
+              <PrivateRoute>
+                <GroupDebtsPage />
+              </PrivateRoute>
+            } 
+          />
           <Route path="/test" element={<TestApiComponent />} />
           <Route
             path="/register"

@@ -1,6 +1,5 @@
 package org.example.pasir_kurek_mikolaj.dto;
 
-
 import org.example.pasir_kurek_mikolaj.model.TransactionType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

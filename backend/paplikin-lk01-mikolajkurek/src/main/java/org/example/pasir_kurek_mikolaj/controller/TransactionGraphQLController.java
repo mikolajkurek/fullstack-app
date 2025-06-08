@@ -26,14 +26,14 @@ public class TransactionGraphQLController {
     }
 
     @QueryMapping
-    public List<Transaction> transactions() {
+    public List<Transaction> transactions(){
         return transactionService.getAllTransactions();
     }
 
     @QueryMapping
-    public BalanceDTO userBalance(@Argument Float days) {
+    public BalanceDTO userBalance(@Argument Float days){
         User user = transactionService.getCurrentUser();
-        return transactionService.getUserBalance(user, days);
+        return transactionService.getUserBalance(user,days);
     }
 
     @MutationMapping
@@ -43,7 +43,7 @@ public class TransactionGraphQLController {
 
     @MutationMapping
     public Transaction updateTransaction(@Argument Long id, @Valid @Argument TransactionDTO transactionDTO) {
-        return transactionService.updateTransaction(id, transactionDTO);
+        return transactionService.updateTransaction(id,transactionDTO);
     }
 
     @MutationMapping

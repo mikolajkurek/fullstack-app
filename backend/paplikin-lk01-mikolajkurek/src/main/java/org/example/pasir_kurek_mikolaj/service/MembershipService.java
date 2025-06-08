@@ -25,7 +25,7 @@ public class MembershipService {
         this.userRepository = userRepository;
     }
 
-    public List<Membership> getGroupMembers(Long groupId) {
+    public List<Membership> getGroupMembers(Long groupId){
         return membershipRepository.findByGroupId(groupId);
     }
 
@@ -51,7 +51,7 @@ public class MembershipService {
         return membershipRepository.save(membership);
     }
 
-    public void removeMember(Long membershipId) {
+    public void removeMember(Long membershipId){
         Membership membership = membershipRepository.findById(membershipId).orElseThrow(
                 () -> new EntityNotFoundException("Czlonkostwo nie istnieje")
         );
@@ -59,7 +59,7 @@ public class MembershipService {
         User currentUser = getCurrentUser();
         User groupOwner = membership.getGroup().getOwner();
 
-        if (!currentUser.getId().equals(groupOwner.getId())) {
+        if(!currentUser.getId().equals(groupOwner.getId())){
             throw new SecurityException("Tylko wlasciciel grupy moze usuwac czlonkow");
         }
 

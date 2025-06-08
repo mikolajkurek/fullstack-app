@@ -20,7 +20,7 @@ public class GroupGraphQLController {
     }
 
     @QueryMapping
-    public List<Group> groups() {
+    public List<Group> groups(){
         return groupService.getAllGroups();
     }
 

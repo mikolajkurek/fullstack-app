@@ -7,12 +7,12 @@ type Query {
     groupMembers(groupId: ID!): [Membership!]!
     groupDebts(groupId: ID!): [Debt!]!
 }
-type BalanceDto {
+type BalanceDto{
     totalIncome: Float!
     totalExpense:Float!
     balance: Float!
 }
-type Mutation {
+type Mutation{
     addTransaction(transactionDTO: TransactionInput!):Transaction
     updateTransaction(id: ID!,transactionDTO:TransactionInput!):Transaction
     deleteTransaction(id: ID!): Boolean
@@ -32,7 +32,7 @@ type Mutation {
 
     addGroupTransaction(groupTransactionDTO: GroupTransactionInput!):Boolean
 }
-type Transaction {
+type Transaction{
     id: ID!
     amount: Float!
     type: String!
@@ -40,36 +40,36 @@ type Transaction {
     notes: String
     timestamp: String
 }
-input TransactionInput {
+input TransactionInput{
     amount: Float!
     type: String!
     tags: String!
     notes: String
 }
 
-type Group {
+type Group{
     id: ID!
     name: String!
     ownerId: ID!
 }
 
-input GroupInput {
+input GroupInput{
     name: String!
 }
 
-type Membership {
+type Membership{
     id: ID!
     groupId: ID!
     userId: ID!
     userEmail: String!
 }
 
-input MembershipInput {
+input MembershipInput{
     userEmail: String!
     groupId: ID!
 }
 
-type Debt {
+type Debt{
     id: ID!
     amount: Float!
     title: String!
@@ -80,13 +80,13 @@ type Debt {
     confirmedByCreditor: Boolean!
 }
 
-type User {
+type User{
     id: ID!
     email: String!
     username: String!
 }
 
-input DebtInput {
+input DebtInput{
     debtorId: ID!
     creditorId: ID!
     groupId: ID!
@@ -94,7 +94,7 @@ input DebtInput {
     title: String!
 }
 
-input GroupTransactionInput {
+input GroupTransactionInput{
     groupId: ID!
     amount: Float!
     type: String!

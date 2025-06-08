@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
         this.jwtUtil = jwtUtil;
     }
 
-    public User register(UserDto dto) {
+    public User register(UserDto dto){
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
@@ -36,10 +36,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public String login(LoginDto dto) {
+    public String login(LoginDto dto){
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono uzytkownika"));
-        if (!encoder.matches(dto.getPassword(), user.getPassword())) {
+        if(!encoder.matches(dto.getPassword(), user.getPassword())){
             throw new BadCredentialsException("Nieprawidlowe dane logowania");
         }
         return jwtUtil.generateToken(user);
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono uzytkownika " + email));
+                .orElseThrow(()-> new UsernameNotFoundException("Nie znaleziono uzytkownika "+ email));
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

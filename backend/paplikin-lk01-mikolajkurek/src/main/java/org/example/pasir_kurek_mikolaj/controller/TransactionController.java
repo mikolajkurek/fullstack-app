@@ -1,6 +1,5 @@
 package org.example.pasir_kurek_mikolaj.controller;
 
-
 import org.example.pasir_kurek_mikolaj.dto.TransactionDTO;
 import org.example.pasir_kurek_mikolaj.model.Transaction;
 import org.example.pasir_kurek_mikolaj.service.TransactionService;
@@ -21,24 +20,24 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Transaction>> getAllTransactions() {
+    public ResponseEntity<List<Transaction>> getAllTransactions(){
         return ResponseEntity.ok(transactionService.getAllTransactions());
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> saveTransactions(@Valid @RequestBody TransactionDTO transactionDetails) {
+    public ResponseEntity<Transaction> saveTransactions(@Valid @RequestBody TransactionDTO transactionDetails){
         Transaction transaction = transactionService.saveTransactions(transactionDetails);
         return ResponseEntity.ok(transaction);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Transaction> updateTransaction(@PathVariable Long id, @Valid @RequestBody TransactionDTO transactionDetails) {
+    public ResponseEntity<Transaction> updateTransaction(@PathVariable Long id, @Valid @RequestBody TransactionDTO transactionDetails){
         Transaction transaction = transactionService.updateTransaction(id, transactionDetails);
         return ResponseEntity.ok(transaction);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Transaction> removeTransaction(@PathVariable Long id) {
+    public ResponseEntity<Transaction> removeTransaction(@PathVariable Long id){
         Transaction transaction = transactionService.removeTransaction(id);
         return ResponseEntity.ok(transaction);
     }

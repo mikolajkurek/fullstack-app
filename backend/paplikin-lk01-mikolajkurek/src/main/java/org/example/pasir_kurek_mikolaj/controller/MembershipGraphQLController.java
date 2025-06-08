@@ -31,7 +31,7 @@ public class MembershipGraphQLController {
     }
 
     @QueryMapping
-    public List<MembershipResponseDTO> groupMembers(@Argument Long groupId) {
+    public List<MembershipResponseDTO> groupMembers(@Argument Long groupId){
         Group group = groupRepository.findById(groupId).orElseThrow(
                 () -> new IllegalArgumentException("Nie znaleziono grupy o ID: " + groupId)
         );
@@ -57,7 +57,7 @@ public class MembershipGraphQLController {
     }
 
     @QueryMapping
-    public List<GroupResponseDTO> myGroups() {
+    public List<GroupResponseDTO> myGroups(){
         User user = membershipService.getCurrentUser();
         return groupRepository.findByMemberships_User(user).stream()
                 .map(group -> new GroupResponseDTO(

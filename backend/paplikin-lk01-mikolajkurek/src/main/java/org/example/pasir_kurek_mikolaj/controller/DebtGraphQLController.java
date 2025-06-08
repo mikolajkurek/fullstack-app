@@ -28,7 +28,7 @@ public class DebtGraphQLController {
     public List<Debt> groupDebts(@Argument Long groupId) {
         return debtService.getGroupDebts(groupId).stream()
                 .peek(debt -> {
-                    if (debt.getTitle() == null) {
+                    if (debt.getTitle() == null){
                         debt.setTitle("Brak opisu");
                     }
                 }).toList();

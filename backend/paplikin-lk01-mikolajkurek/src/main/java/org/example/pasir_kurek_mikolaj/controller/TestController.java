@@ -13,7 +13,6 @@ public class TestController {
     public String test() {
         return "Hello, World!";
     }
-
     @GetMapping("/api/info")
     public Map<String, String> getInfo() {
         Map<String, String> appInfo = new HashMap<>();

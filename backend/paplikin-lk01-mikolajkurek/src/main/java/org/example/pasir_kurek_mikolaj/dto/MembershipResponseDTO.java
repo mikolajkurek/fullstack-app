@@ -1,6 +1,5 @@
 package org.example.pasir_kurek_mikolaj.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,7 @@
 package org.example.pasir_kurek_mikolaj.dto;
 
-
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter

@@ -57,7 +57,7 @@ public class DebtService {
                 () -> new EntityNotFoundException("Dlug o id: " + debtId + "nie zostal odnaleziony")
         );
 
-        if (!debt.getCreditor().getId().equals(currentUser.getId())) {
+        if(!debt.getCreditor().getId().equals(currentUser.getId())) {
             throw new SecurityException("Tylko wierzyciel moze usunac dlug!");
         }
 
@@ -83,11 +83,11 @@ public class DebtService {
                 () -> new EntityNotFoundException("Nie znaleziono dlugu")
         );
 
-        if (!debt.getCreditor().getId().equals(user.getId())) {
+        if(!debt.getCreditor().getId().equals(user.getId())) {
             throw new SecurityException("Nie jestes wierzycielem");
         }
 
-        if (!debt.isMarkedAsPaid()) {
+        if(!debt.isMarkedAsPaid()){
             throw new IllegalStateException("Dluznik nie oznaczyl jeszcze jako oplacone");
         }
 

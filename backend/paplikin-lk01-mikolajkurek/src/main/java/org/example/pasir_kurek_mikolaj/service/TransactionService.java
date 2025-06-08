@@ -25,17 +25,17 @@ public class TransactionService {
         this.userRepository = userRepository;
     }
 
-    public List<Transaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions(){
         User user = getCurrentUser();
         return transactionRepository.findAllByUser(user);
     }
 
-    public Transaction getTramsactionById(Long id) {
+    public Transaction getTramsactionById(Long id){
         return transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID: " + id));
+                .orElseThrow(()-> new EntityNotFoundException("Nie znaleziono transakcji o ID: "+id));
     }
 
-    public Transaction saveTransactions(TransactionDTO transactionDetails) {
+    public Transaction saveTransactions(TransactionDTO transactionDetails){
 
         Transaction transaction = new Transaction(
                 transactionDetails.getAmount(),
@@ -49,9 +49,9 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public Transaction updateTransaction(Long id, TransactionDTO transactionDTO) {
+    public Transaction updateTransaction(Long id, TransactionDTO transactionDTO){
         Transaction transaction = transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID: " + id));
+                .orElseThrow(()-> new EntityNotFoundException("Nie znaleziono transakcji o ID: "+id));
 
         if (!transaction.getUser().getEmail().equals(getCurrentUser().getEmail()))
             throw new SecurityException("Brak dostepu do edycji tej transkacji");
@@ -65,29 +65,29 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public Transaction removeTransaction(Long id) {
+    public Transaction removeTransaction(Long id){
         Transaction deletedTransaction = transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID: " + id));
+                .orElseThrow(()-> new EntityNotFoundException("Nie znaleziono transakcji o ID: "+id));
         try {
             transactionRepository.deleteById(id);
             return deletedTransaction;
         } catch (Exception e) {
-            throw new RuntimeException("Błąd przy usuwaniu transakcji " + e);
+            throw new RuntimeException("Błąd przy usuwaniu transakcji "+e);
         }
     }
 
-    public User getCurrentUser() {
+    public User getCurrentUser(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono zalogowanego uzytkownika"));
+                .orElseThrow(()-> new EntityNotFoundException("Nie znaleziono zalogowanego uzytkownika"));
     }
 
     public BalanceDTO getUserBalance(User user, Float days) {
         List<Transaction> userTransactions = transactionRepository.findAllByUser(user);
 
-        if (days != null) {
-            LocalDateTime fromDate = LocalDateTime.now().minusSeconds(Math.round(days * 86400));
-            userTransactions = userTransactions.stream().filter(t -> t.getTimestamp().isAfter(fromDate)).toList();
+        if(days!=null){
+            LocalDateTime fromDate=LocalDateTime.now().minusSeconds(Math.round(days*86400));
+            userTransactions=userTransactions.stream().filter(t->t.getTimestamp().isAfter(fromDate)).toList();
         }
 
         double income = userTransactions.stream()
