@@ -68,13 +68,31 @@ jobs:
         working-directory: ./backend/paplikin-lk01-mikolajkurek
         run: ./mvnw test
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: .
-          args: >
-            -Dsonar.projectKey=mikolajkurek_fullstack-app
-            -Dsonar.organization=mikolajkurek
+      - name: Setup sonar-scanner
+        uses: warchant/setup-sonar-scanner@v7
+
+      # Run SonarCloud analysis for backend using Maven
+      - name: Run SonarCloud Analysis for Backend
+        working-directory: ./backend/paplikin-lk01-mikolajkurek
+        run: |
+          ./mvnw sonar:sonar \
+            -Dsonar.projectKey=mikolajkurek_fullstack-app:backend \
+            -Dsonar.organization=mikolajkurek \
+            -Dsonar.host.url=https://sonarcloud.io
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # Run SonarCloud analysis for frontend using standalone scanner
+      - name: Run SonarCloud Analysis for Frontend
+        working-directory: ./frontend
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=mikolajkurek_fullstack-app:frontend \
+            -Dsonar.organization=mikolajkurek \
+            -Dsonar.sources=src \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.exclusions=**/*.spec.ts,**/*.test.tsx,**/_tests_/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
